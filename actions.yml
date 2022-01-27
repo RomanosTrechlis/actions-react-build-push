@@ -7,6 +7,10 @@ branding:
   icon: 'package'
 
 inputs:
+  build_directory:
+    description: "Input the build directory name "
+    required: false
+    default: "webapp_dist"
   package_manager:
     description: "Choose between npm and yarn"
     required: false

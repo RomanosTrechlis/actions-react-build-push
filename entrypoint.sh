@@ -5,6 +5,7 @@ packageManager=${INPUT_PACKAGE_MANAGER:-yarn}
 buildCommand=${INPUT_BUILD_COMMAND-yarn build}
 pushBranchPrefix=${INPUT_PUSH_BRANCH_PREFIX:-action_push}
 prBranch=${INPUT_PR_BRANCH:-master}
+buildDir=${INPUT_BUILD_DIRECTORY:-webapp_dist}
 
 branch=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13 ; echo '')
 pushBranchName=${pushBranchPrefix}_${branch}
@@ -21,7 +22,7 @@ export GITHUB_USER="${GITHUB_ACTOR}"
 
 # build directory is usually included in the .gitignore file
 # and for this reason it must be renamed to something else
-mv build webapp_dist
+mv build "$buildDir"
 
 # executing the git commands for committing and pushing to branch
 git add webapp_dist
