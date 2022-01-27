@@ -32,7 +32,8 @@ git push origin "$pushBranchName"
 
 echo "Diff"
 diff=$(git diff --compact-summary --no-color "origin/${pushBranchName}...origin/${prBranch}")
-diff=${diff:-prTitle}
+echo "$diff"
+diff=${diff:-$prTitle}
 echo "$diff"
 
-hub pull-request -b "$pushBranchName" -h "$prBranch" -m "$diff" --no-edit
+hub pull-request -b "$prBranch" -h "$pushBranchName" -m "$diff" --no-edit
