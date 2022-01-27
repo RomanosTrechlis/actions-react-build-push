@@ -15,6 +15,18 @@ prBody=${INPUT_PR_BODY:-Pull request}
 #echo "${prTitle}"
 #echo "${prBody}"
 
+branch=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13 ; echo '')
+pushBranchName=${pushBranchPrefix}_${branch}
+
+git checkout -b "$pushBranchName"
+
 $packageManager install
-ls -lh
 $buildCommand
+
+ls -lh
+
+git add build
+git commit -m "Github action: build"
+git push origin "$pushBranchName"
+
+git request-pull -p "$pushBranchName" origin  
