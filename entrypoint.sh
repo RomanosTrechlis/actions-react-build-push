@@ -33,7 +33,7 @@ defaultTitle=$(echo "Pull request: $pushBranchName -> $prBranch")
 title=${INPUT_PR_TITLE:-$defaultTitle}
 
 git fetch
-git checkout -b "remotes/origin/$prBranch"
+git checkout "origin/$prBranch"
 description=$(git diff --compact-summary --no-color "origin/${pushBranchName}")
 
 # creating .md file for hub pull-request command
