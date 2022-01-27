@@ -15,6 +15,6 @@ prBody=${INPUT_PR_BODY:-Pull request}
 #echo "${prTitle}"
 #echo "${prBody}"
 
+$packageManager install
 ls -lh
-
-${buildCommand}
+$buildCommand
