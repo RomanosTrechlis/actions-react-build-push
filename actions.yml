@@ -1,0 +1,43 @@
+# action.yaml
+name: 'actions-react-build-push'
+description: 'Builds, pushes, and creates PR to release repo for React projects'
+author: 'Romanos Trechlis'
+branding:
+  color: 'yellow'
+  icon: 'package'
+
+inputs:
+  package_manager:
+    description: "Choose between npm and yarn"
+    required: false
+    default: "yarn"
+  build_command:
+    description: "Custom build command"
+    required: false
+    default: "yarn build"
+  push_branch_prefix:
+    description: "Prefix for the push branch name"
+    required: false
+    default: "action_push"
+  pr_branch:
+    description: "Branch name to create pull request"
+    required: false
+    default: "master"
+  pr_title:
+    description: "The title of the push request"
+    required: false
+    default: "Pull request"
+  pr_body:
+    description: "The body of the push request"
+    required: false
+    default: "Pull request"
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.package_manager }}
+    - ${{ inputs.build_command }}
+    - ${{ inputs.push_branch_prefix }}
+    - ${{ inputs.pr_branch }}
+    - ${{ inputs.pr_title }}
+    - ${{ inputs.pr_body }}
