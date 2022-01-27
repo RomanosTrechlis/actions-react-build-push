@@ -18,9 +18,17 @@ $buildCommand
 
 ls -lh
 
-mv build webapp
+# git configuration
+git config --global user.name "${GITHUB_ACTOR}"
+git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+export GITHUB_USER="${GITHUB_ACTOR}"
 
-git add webapp
+# build directory is usually included in the .gitignore file
+# and for this reason it must be renamed to something else
+mv build webapp_dist
+
+# executing the git commands for committing and pushing to branch
+git add webapp_dist
 git status
 git commit -m "Github action: build"
 git push origin "$pushBranchName"
@@ -30,5 +38,7 @@ body=${INPUT_PR_BODY:-"$prBody"}
 
 echo "$body"
 
-export GITHUB_USER="${GITHUB_ACTOR}"
+
+
+
 hub pull-request -b "$pushBranchName" -h "$prBranch" -m "$body" --no-edit
