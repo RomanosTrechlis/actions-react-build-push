@@ -8,9 +8,13 @@ prBranch=${INPUT_PR_BRANCH:-master}
 prTitle=${INPUT_PR_TITLE:-Pull request}
 prBody=${INPUT_PR_BODY:-Pull request}
 
-echo "${packageManager}"
-echo "${buildCommand}"
-echo "${pushBranchPrefix}"
-echo "${prBranch}"
-echo "${prTitle}"
-echo "${prBody}"
+#echo "${packageManager}"
+#echo "${buildCommand}"
+#echo "${pushBranchPrefix}"
+#echo "${prBranch}"
+#echo "${prTitle}"
+#echo "${prBody}"
+
+ls -lh
+
+${buildCommand}
