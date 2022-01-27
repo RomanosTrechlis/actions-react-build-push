@@ -7,6 +7,9 @@ branding:
   icon: 'package'
 
 inputs:
+  current_branch:
+    description: "Branch that runs the action: use ${{ github.ref_name }}"
+    required: true
   package_manager:
     description: "Choose between npm and yarn"
     required: false
@@ -30,7 +33,6 @@ inputs:
   pr_body:
     description: "The body of the push request"
     required: false
-    default: "Pull request"
 runs:
   using: 'docker'
   image: 'Dockerfile'
