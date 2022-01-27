@@ -18,7 +18,9 @@ $buildCommand
 
 ls -lh
 
-git add build
+mv build webapp
+
+git add webapp
 git status
 git commit -m "Github action: build"
 git push origin "$pushBranchName"
