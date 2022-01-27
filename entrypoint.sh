@@ -29,17 +29,18 @@ git commit -m "Github action: build"
 git push origin "$pushBranchName"
 
 # creating pull request title and description
-echo "Pull request: $pushBranchName -> $prBranch"
 defaultTitle=$(echo "Pull request: $pushBranchName -> $prBranch")
 title=${INPUT_PR_TITLE:-$defaultTitle}
-echo $title
+
+git checkout -b prod
+diff=$(git diff --compact-summary --no-color "origin/${pushBranchName}")
+
 echo "$title" > pr.md
 echo "" >> pr.md
 echo "" >> pr.md
-
-git checkout prod
-diff=$(git diff --compact-summary --no-color "origin/${pushBranchName}")
 echo "$diff" >> pr.md
+
+cat pr.md
 
 # executing pull-request
 hub pull-request -b "$prBranch" -h "$pushBranchName" -F pr.md --no-edit
