@@ -1,12 +1,10 @@
 #!/bin/sh
 set -e
 
-currentBranch=${INPUT_CURRENT_BRANCH}
 packageManager=${INPUT_PACKAGE_MANAGER:-yarn}
 buildCommand=${INPUT_BUILD_COMMAND-yarn build}
 pushBranchPrefix=${INPUT_PUSH_BRANCH_PREFIX:-action_push}
 prBranch=${INPUT_PR_BRANCH:-master}
-prTitle=${INPUT_PR_TITLE:-Pull request}
 
 branch=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13 ; echo '')
 pushBranchName=${pushBranchPrefix}_${branch}
@@ -30,17 +28,16 @@ git add webapp_dist
 git commit -m "Github action: build"
 git push origin "$pushBranchName"
 
-
-
-echo "Diff"
-echo "$prTitle" > pr.md
+# creating pull request title and description
+defaultTitle=$("Pull request: $pushBranchName -> $prBranch")
+title=${INPUT_PR_TITLE:-$defaultTitle}
+echo "$title" > pr.md
 echo "" >> pr.md
 echo "" >> pr.md
+
 git checkout prod
 diff=$(git diff --compact-summary --no-color "origin/${pushBranchName}")
 echo "$diff" >> pr.md
-#diff=${diff:-$prTitle}
-#echo "$diff"
-cat pr.md
 
+# executing pull-request
 hub pull-request -b "$prBranch" -h "$pushBranchName" -F pr.md --no-edit
