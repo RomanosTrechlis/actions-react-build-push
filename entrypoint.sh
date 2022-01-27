@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+set -e
 
 echo "${INPUT_PACKAGE_MANAGER}"
 echo "${INPUT_BUILD_COMMAND}"
