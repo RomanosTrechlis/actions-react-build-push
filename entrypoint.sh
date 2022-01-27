@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "${INPUT_PACKAGE_MANAGER}"
 echo "${INPUT_BUILD_COMMAND}"
 echo "${INPUT_PUSH_BRANCH_PREFIX}"
