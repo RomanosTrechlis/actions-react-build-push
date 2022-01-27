@@ -32,14 +32,15 @@ git push origin "$pushBranchName"
 defaultTitle=$(echo "Pull request: $pushBranchName -> $prBranch")
 title=${INPUT_PR_TITLE:-$defaultTitle}
 
-git checkout -b prod
-diff=$(git diff --compact-summary --no-color "origin/${pushBranchName}")
+git fetch
+git checkout -b "remotes/origin/$prBranch"
+description=$(git diff --compact-summary --no-color "origin/${pushBranchName}")
 
+# creating .md file for hub pull-request command
 echo "$title" > pr.md
 echo "" >> pr.md
 echo "" >> pr.md
-echo "$diff" >> pr.md
-
+echo "$description" >> pr.md
 cat pr.md
 
 # executing pull-request
