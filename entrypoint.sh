@@ -33,12 +33,9 @@ git status
 git commit -m "Github action: build"
 git push origin "$pushBranchName"
 
-prBody=git request-pull -p "$currentBranch" origin "$pushBranchName"
-body=${INPUT_PR_BODY:-"$prBody"}
 
-echo "$body"
+diff=$(git diff --compact-summary --no-color "origin/${pushBranchName}...origin/${prBranch}")
 
+echo "$diff"
 
-
-
-hub pull-request -b "$pushBranchName" -h "$prBranch" -m "$body" --no-edit
+hub pull-request -b "$pushBranchName" -h "$prBranch" -m "$diff" --no-edit
