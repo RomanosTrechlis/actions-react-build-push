@@ -33,10 +33,14 @@ git push origin "$pushBranchName"
 
 
 echo "Diff"
+echo "$prTitle" > pr.md
+echo "" >> pr.md
+echo "" >> pr.md
 git checkout prod
 diff=$(git diff --compact-summary --no-color "origin/${pushBranchName}")
-echo "$diff"
-diff=${diff:-$prTitle}
-echo "$diff"
+echo "$diff" >> pr.md
+#diff=${diff:-$prTitle}
+#echo "$diff"
+cat pr.md
 
-hub pull-request -b "$prBranch" -h "$pushBranchName" -m "$diff" --no-edit
+hub pull-request -b "$prBranch" -h "$pushBranchName" -F pr.md --no-edit
