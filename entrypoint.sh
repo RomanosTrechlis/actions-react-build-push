@@ -8,6 +8,6 @@ echo "${INPUT_PR_BRANCH}"
 echo "${INPUT_PR_TITLE}"
 echo "${INPUT_PR_BODY}"
 
-cmd "$(git -v)"
-cmd "$(yarn -v)"
-cmd "$(npm -v)"
+yarn -v
+npm -v
+git -v
