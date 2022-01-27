@@ -16,8 +16,6 @@ git checkout -b "$pushBranchName"
 $packageManager install
 $buildCommand
 
-ls -lh
-
 # git configuration
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
@@ -29,13 +27,12 @@ mv build webapp_dist
 
 # executing the git commands for committing and pushing to branch
 git add webapp_dist
-git status
 git commit -m "Github action: build"
 git push origin "$pushBranchName"
 
-
+echo "Diff"
 diff=$(git diff --compact-summary --no-color "origin/${pushBranchName}...origin/${prBranch}")
-
+diff=${diff:-prTitle}
 echo "$diff"
 
 hub pull-request -b "$pushBranchName" -h "$prBranch" -m "$diff" --no-edit
