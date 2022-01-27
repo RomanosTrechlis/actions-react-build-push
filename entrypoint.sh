@@ -25,7 +25,7 @@ export GITHUB_USER="${GITHUB_ACTOR}"
 mv build "$buildDir"
 
 # executing the git commands for committing and pushing to branch
-git add webapp_dist
+git add "$buildDir"
 git commit -m "Github action: build"
 git push origin "$pushBranchName"
 
