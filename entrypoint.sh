@@ -30,8 +30,11 @@ git add webapp_dist
 git commit -m "Github action: build"
 git push origin "$pushBranchName"
 
+
+
 echo "Diff"
-diff=$(git diff --compact-summary --no-color "origin/${pushBranchName}...origin/${prBranch}")
+git checkout prod
+diff=$(git diff --compact-summary --no-color "origin/${pushBranchName}")
 echo "$diff"
 diff=${diff:-$prTitle}
 echo "$diff"
