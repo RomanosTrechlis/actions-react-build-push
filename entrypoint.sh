@@ -29,7 +29,7 @@ git commit -m "Github action: build"
 git push origin "$pushBranchName"
 
 # creating pull request title and description
-defaultTitle=$("Pull request: $pushBranchName -> $prBranch")
+defaultTitle=$(echo "Pull request: $pushBranchName -> $prBranch")
 title=${INPUT_PR_TITLE:-$defaultTitle}
 echo "$title" > pr.md
 echo "" >> pr.md
