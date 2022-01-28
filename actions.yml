@@ -39,3 +39,4 @@ runs:
     - ${{ inputs.push_branch_prefix }}
     - ${{ inputs.pr_branch }}
     - ${{ inputs.pr_title }}
+    - ${{ inputs.build_directory }}
