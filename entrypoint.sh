@@ -10,6 +10,8 @@ buildDir=${INPUT_BUILD_DIRECTORY:-webapp_dist}
 branch=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13 ; echo '')
 pushBranchName=${pushBranchPrefix}_${branch}
 
+git config --global --add safe.directory "*"
+
 git checkout -b "$pushBranchName"
 
 $packageManager install
